@@ -57,7 +57,7 @@ namespace ShoppingList
                 return;
             }
 
-            var confirmationAnswer = await Shell.Current.DisplayAlert(AppRes.Warning, $"{AppRes.ConfirmationQuestion}: {item}", AppRes.Yes, AppRes.No );
+            var confirmationAnswer = await Shell.Current.DisplayAlert(item, AppRes.ConfirmationQuestion, AppRes.Yes, AppRes.No );
             if (!confirmationAnswer)
             {
                 return;
