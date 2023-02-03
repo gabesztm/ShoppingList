@@ -29,7 +29,7 @@
         </Grid>
         
         <Border Grid.Row="1" Margin="10">
-            <Editor  Text="{Binding ShoppingList}" Shadow="{x:StaticResource Key=shadow}" Placeholder="{x:Static res:AppRes.EditorPlaceholder}"/>
+            <Editor  Text="{Binding ShoppingList}" Shadow="{x:StaticResource Key=shadow}" Placeholder="{x:Static res:AppRes.EditorPlaceholder}" Margin="5"/>
         </Border>
 
         
