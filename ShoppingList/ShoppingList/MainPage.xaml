@@ -28,16 +28,16 @@
         </Grid.RowDefinitions>
         
         <CollectionView Grid.Row="0" ItemsSource="{Binding List}" ItemTemplate="{StaticResource shoppingListItemTemplate}" SelectionMode="None" VerticalScrollBarVisibility="Always" ItemsUpdatingScrollMode="KeepScrollOffset"/>
-        
-        <Grid Grid.Row="1" Margin="10">
+
+        <Grid Grid.Row="1" Margin="10" x:Name="buttonsGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <ImageButton Grid.Column="0" Source="edit_svgrepo_com.svg" Command="{Binding EditCommand}" />
-            <ImageButton Grid.Column="1" Source="upload_cloud_svgrepo_com.svg"  Command="{Binding ShareCommand}"/>
-            <ImageButton Grid.Column="2" Source="download_cloud_svgrepo_com.svg" Command="{Binding ImportCommand}"/>
+            <ImageButton Grid.Column="0" Source="edit_svgrepo_com.png" Command="{Binding EditCommand}" />
+            <ImageButton Grid.Column="1" Source="upload_cloud_svgrepo_com.png"  Command="{Binding ShareCommand}"/>
+            <ImageButton Grid.Column="2" Source="download_cloud_svgrepo_com.png" Command="{Binding ImportCommand}"/>
             
         </Grid>
     </Grid>

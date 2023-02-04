@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Resources;
+using System.Diagnostics;
 
 namespace ShoppingList
 {
@@ -81,7 +82,18 @@ namespace ShoppingList
             t.Wait();
         }
 
-        
+        public static void OpenFileLocation()
+        {
+#if WINDOWS
+            Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
+            return;
+#elif MACCATALYST
+            Process.Start("open", $"-R \"FileSystem.Current.AppDataDirectory\"");
+            return;
+#endif
+        }
+
+
         public static async Task<IEnumerable<string>> Load(string path = null)
         {
             string pathToLoad = string.IsNullOrEmpty(path) ? GetPath() : path;

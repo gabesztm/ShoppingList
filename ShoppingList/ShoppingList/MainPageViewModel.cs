@@ -27,7 +27,12 @@ namespace ShoppingList
         {
             var t = Task.Run( () => {  DataIO.Share(); });
             t.Wait();
-            
+        }
+
+        [RelayCommand]
+        public void OpenFileLocation()
+        {
+            DataIO.OpenFileLocation();
         }
 
         [RelayCommand]
