@@ -1,14 +1,13 @@
 ﻿using ShoppingList.Resources;
-using System.Diagnostics;
 
 namespace ShoppingList
 {
-    internal static class DataIO
+    public class DataIO
     {
-        private const string _fileName = "Data.shoppinglist";
+        private readonly string _fileName = "Data.shoppinglist";
 
 
-        public static async Task Save(IEnumerable<string> data)
+        public async Task Save(IEnumerable<string> data)
         {
             using (StreamWriter file = new StreamWriter(GetPath(), append: false))
             {
@@ -20,7 +19,7 @@ namespace ShoppingList
             }
         }
 
-        public static async Task Save(string data)
+        public async Task Save(string data)
         {
             List<string> list = new List<string>();
             using(StringReader sr = new StringReader(data)) 
@@ -34,7 +33,7 @@ namespace ShoppingList
             await Save(list);
         }
 
-        public static async Task ImportFromFile(string filename, ImportActions action)
+        public async Task ImportFromFile(string filename, ImportActions action)
         {
             var importedList = await Load(filename);
             if(action == ImportActions.Overwrite)
@@ -60,7 +59,7 @@ namespace ShoppingList
             
         }
 
-        public static void CreateDefaultFile()
+        public void CreateDefaultFile()
         {
             if (File.Exists(GetPath()))
             {
@@ -69,7 +68,7 @@ namespace ShoppingList
             using StreamWriter file = new StreamWriter(GetPath(), append: false);
         }
 
-        public static void Share()
+        public void Share()
         {
             var t = Task.Run(async () =>
             {
@@ -82,7 +81,7 @@ namespace ShoppingList
             t.Wait();
         }
 
-        public static void OpenFileLocation()
+        public void OpenFileLocation()
         {
 #if WINDOWS
             Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
@@ -94,7 +93,7 @@ namespace ShoppingList
         }
 
 
-        public static async Task<IEnumerable<string>> Load(string path = null)
+        public async Task<IEnumerable<string>> Load(string path = null)
         {
             string pathToLoad = string.IsNullOrEmpty(path) ? GetPath() : path;
             if (File.Exists(pathToLoad))
@@ -104,7 +103,7 @@ namespace ShoppingList
             return Array.Empty<string>();
         }
 
-        private static string GetPath()
+        private string GetPath()
         {
             return Path.Combine(FileSystem.Current.AppDataDirectory, _fileName);
         }

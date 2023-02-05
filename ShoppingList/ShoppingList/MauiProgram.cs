@@ -19,6 +19,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<EditPage>();
         builder.Services.AddTransient<EditPageViewModel>();
 
+        builder.Services.AddSingleton<DataIO>();
+
         return builder.Build();
 	}
 }

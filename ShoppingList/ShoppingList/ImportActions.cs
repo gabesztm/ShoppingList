@@ -1,6 +1,6 @@
 ﻿namespace ShoppingList
 {
-    enum ImportActions
+    public enum ImportActions
     {
         Overwrite,
         Append

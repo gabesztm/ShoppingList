@@ -5,14 +5,17 @@ using ShoppingList.Resources;
 
 namespace ShoppingList
 {
-    internal partial class MainPageViewModel : ObservableObject
+    public partial class MainPageViewModel : ObservableObject
     {
+        private readonly DataIO _dataIO;
+
         [ObservableProperty]
-        private ObservableCollection<string> _list;
+        private ObservableCollection<string> _itemList;
 
 
-        public MainPageViewModel()
+        public MainPageViewModel(DataIO dataIO)
         {
+            _dataIO = dataIO;
             Init();
         }
 
@@ -25,14 +28,14 @@ namespace ShoppingList
         [RelayCommand]
         public void Share()
         {
-            var t = Task.Run( () => {  DataIO.Share(); });
+            var t = Task.Run( () => {  _dataIO.Share(); });
             t.Wait();
         }
 
         [RelayCommand]
         public void OpenFileLocation()
         {
-            DataIO.OpenFileLocation();
+            _dataIO.OpenFileLocation();
         }
 
         [RelayCommand]
@@ -48,7 +51,7 @@ namespace ShoppingList
                     return;
                 }
 
-                await DataIO.ImportFromFile(result.FullPath, (ImportActions)action);
+                await _dataIO.ImportFromFile(result.FullPath, (ImportActions)action);
                 LoadFromDisk();
             }
         }
@@ -68,8 +71,8 @@ namespace ShoppingList
                 return;
             }
 
-            List.Remove(item);
-            await DataIO.Save(List);
+            ItemList.Remove(item);
+            await _dataIO.Save(ItemList);
         }
 
         private ImportActions? GetImportAction(string actionString)
@@ -94,7 +97,7 @@ namespace ShoppingList
 
         private void Init()
         {
-            DataIO.CreateDefaultFile();
+            _dataIO.CreateDefaultFile();
             LoadFromDisk();
 
         }
@@ -103,13 +106,13 @@ namespace ShoppingList
         {
             ObservableCollection<string> shoppingList = new ObservableCollection<string>();
             var t = Task.Run(async () => {
-                foreach (var item in await DataIO.Load())
+                foreach (var item in await _dataIO.Load())
                 {
                     shoppingList.Add(item);
                 }
             });
             t.Wait();
-            List = shoppingList;
+            ItemList = shoppingList;
         }
     }
 

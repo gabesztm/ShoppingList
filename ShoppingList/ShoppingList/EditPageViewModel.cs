@@ -6,14 +6,21 @@ namespace ShoppingList
 {
     public partial class EditPageViewModel : ObservableObject
     {
+        private readonly DataIO _dataIO;
+
         [ObservableProperty]
         private string _shoppingList;
+
+        public EditPageViewModel(DataIO dataIO)
+        {
+            _dataIO = dataIO;
+        }
 
         public void OnAppearing()
         {
             var t = Task.Run(async () => {
                 StringBuilder sb = new StringBuilder();
-                foreach (var line in await DataIO.Load())
+                foreach (var line in await _dataIO.Load())
                 {
                     sb.AppendLine(line);
                 }
@@ -25,7 +32,7 @@ namespace ShoppingList
         [RelayCommand]
         public async Task Save()
         {
-            await DataIO.Save(ShoppingList);
+            await _dataIO.Save(ShoppingList);
             await Shell.Current.GoToAsync("..");
         }
 

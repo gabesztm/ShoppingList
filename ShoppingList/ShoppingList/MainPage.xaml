@@ -26,8 +26,8 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
-        <CollectionView Grid.Row="0" ItemsSource="{Binding List}" ItemTemplate="{StaticResource shoppingListItemTemplate}" SelectionMode="None" VerticalScrollBarVisibility="Always" ItemsUpdatingScrollMode="KeepScrollOffset"/>
+
+        <CollectionView Grid.Row="0" ItemsSource="{Binding ItemList}" ItemTemplate="{StaticResource shoppingListItemTemplate}" SelectionMode="None" VerticalScrollBarVisibility="Always" ItemsUpdatingScrollMode="KeepScrollOffset"/>
 
         <Grid Grid.Row="1" Margin="10" x:Name="buttonsGrid">
             <Grid.ColumnDefinitions>
