@@ -16,6 +16,14 @@
                     <Label Text="{Binding .}" HorizontalTextAlignment="Start" Margin="5" Shadow="{x:StaticResource Key=shadow}"/>
                 </Frame>
             </DataTemplate>
+            <DataTemplate x:Key="shoppingListItemTemplateForWINDOWS">
+                <Label Text="{Binding .}" HorizontalTextAlignment="Start" Margin="5" Shadow="{x:StaticResource Key=shadow}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=SelectCommand}" CommandParameter="{Binding .}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </DataTemplate>
+            <local:ShoppingListItemTemplateSelector x:Key="shoppingListItemSelector" Template="{StaticResource shoppingListItemTemplate}" WindowsTemplate="{StaticResource shoppingListItemTemplateForWINDOWS}"/>
             <Shadow x:Key="shadow" Brush="{AppThemeBinding Dark=White, Light=Gray}" Offset="10,10" Opacity="0.5"/>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -26,7 +34,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <CollectionView Grid.Row="0" ItemsSource="{Binding ItemList}" ItemTemplate="{StaticResource shoppingListItemTemplate}" SelectionMode="None" VerticalScrollBarVisibility="Always" ItemsUpdatingScrollMode="KeepScrollOffset"/>
+        <CollectionView Grid.Row="0" ItemsSource="{Binding ItemList}" ItemTemplate="{StaticResource shoppingListItemSelector}" SelectionMode="None" VerticalScrollBarVisibility="Always" ItemsUpdatingScrollMode="KeepScrollOffset"/>
 
         <Grid Grid.Row="1" Margin="10" x:Name="buttonsGrid">
             <Grid.ColumnDefinitions>
