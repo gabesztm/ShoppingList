@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ShoppingList.Resources;
+using System.Diagnostics;
 
 namespace ShoppingList
 {
@@ -28,14 +29,24 @@ namespace ShoppingList
         [RelayCommand]
         public void Share()
         {
-            var t = Task.Run( () => {  _dataIO.Share(); });
+            var t = Task.Run(async () =>
+            {
+                var shareFileRequest = _dataIO.GetShareFile();
+                await Microsoft.Maui.ApplicationModel.DataTransfer.Share.Default.RequestAsync(shareFileRequest);
+            });
             t.Wait();
         }
 
         [RelayCommand]
         public void OpenFileLocation()
         {
-            _dataIO.OpenFileLocation();
+#if WINDOWS
+            Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
+            return;
+#elif MACCATALYST
+            Process.Start("open", $"-R \"{FileSystem.Current.AppDataDirectory}\"");
+            return;
+#endif
         }
 
         [RelayCommand]
@@ -97,16 +108,15 @@ namespace ShoppingList
 
         private void Init()
         {
-            _dataIO.CreateDefaultFile();
             LoadFromDisk();
-
         }
 
         private void LoadFromDisk()
         {
             ObservableCollection<string> shoppingList = new ObservableCollection<string>();
             var t = Task.Run(async () => {
-                foreach (var item in await _dataIO.Load())
+                await _dataIO.Load();
+                foreach (var item in _dataIO.Items)
                 {
                     shoppingList.Add(item);
                 }

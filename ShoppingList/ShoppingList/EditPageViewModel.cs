@@ -9,7 +9,7 @@ namespace ShoppingList
         private readonly DataIO _dataIO;
 
         [ObservableProperty]
-        private string _shoppingList;
+        private string _shoppingItemList;
 
         public EditPageViewModel(DataIO dataIO)
         {
@@ -20,11 +20,12 @@ namespace ShoppingList
         {
             var t = Task.Run(async () => {
                 StringBuilder sb = new StringBuilder();
-                foreach (var line in await _dataIO.Load())
+                await _dataIO.Load();
+                foreach (var line in _dataIO.Items)
                 {
                     sb.AppendLine(line);
                 }
-                ShoppingList = sb.ToString();
+                ShoppingItemList = sb.ToString();
             });
             t.Wait();
         }
@@ -32,7 +33,7 @@ namespace ShoppingList
         [RelayCommand]
         public async Task Save()
         {
-            await _dataIO.Save(ShoppingList);
+            await _dataIO.Save(ShoppingItemList);
             await Shell.Current.GoToAsync("..");
         }
 
