@@ -87,7 +87,7 @@ namespace ShoppingList
             Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
             return;
 #elif MACCATALYST
-            Process.Start("open", $"-R \"FileSystem.Current.AppDataDirectory\"");
+            Process.Start("open", $"-R \"{FileSystem.Current.AppDataDirectory}\"");
             return;
 #endif
         }
