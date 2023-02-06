@@ -9,7 +9,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="shoppingListItemTemplate">
-                <Frame BorderColor="Gray" Margin="3">
+                <Frame BorderColor="Gray" Margin="3" BackgroundColor="Transparent">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=SelectCommand}" CommandParameter="{Binding .}"/>
                     </Frame.GestureRecognizers>
