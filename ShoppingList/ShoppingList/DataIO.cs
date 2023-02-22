@@ -2,7 +2,7 @@
 
 namespace ShoppingList
 {
-    public class DataIO
+    public partial class DataIO
     {
         private readonly string _fileName = "Data.shoppinglist";
         

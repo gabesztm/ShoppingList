@@ -38,14 +38,10 @@ namespace ShoppingList
         }
 
         [RelayCommand]
-        public void OpenFileLocation()
+        public async Task OpenFileLocation()
         {
-#if WINDOWS
-            Process.Start("explorer.exe", FileSystem.Current.AppDataDirectory);
-            return;
-#elif MACCATALYST
-            Process.Start("open", $"-R \"{FileSystem.Current.AppDataDirectory}\"");
-            return;
+#if WINDOWS || MACCATALYST
+            await _dataIO.OpenFileLocation();
 #endif
         }
 
