@@ -106,7 +106,7 @@ namespace ShoppingList.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type you shopping list here....
+        ///   Looks up a localized string similar to Type your shopping list here....
         /// </summary>
         internal static string EditorPlaceholder {
             get {

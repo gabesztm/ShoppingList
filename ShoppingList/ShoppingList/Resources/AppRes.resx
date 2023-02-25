@@ -133,7 +133,7 @@
     <value>Are you sure that you have taken this?</value>
   </data>
   <data name="EditorPlaceholder" xml:space="preserve">
-    <value>Type you shopping list here...</value>
+    <value>Type your shopping list here...</value>
   </data>
   <data name="EditPageTitle" xml:space="preserve">
     <value>Edit</value>
